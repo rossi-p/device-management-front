@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>New Category</h1>
+<div mat-dialog-content>
+    <form [formGroup]="liveForm" ngNativeValidate >
+        <div class="form-group" >
+          <label for="name">Category name</label>
+          <input type="text" 
+          class="form-control" 
+          id="exampleInputEmail1" 
+          aria-describedby="emailHelp" 
+          placeholder="Enter name" 
+          formControlName="name" 
+          name="name"
+          required>
+          <small id="nameHelp" class="form-text text-muted">The maximum size for names is 128.</small>
+        </div>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary primary-color float-right" (click)="createCategory()">Submit</button>
+      </form>
+</div>
