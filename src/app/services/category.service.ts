@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from '../models/category.model';
 
-const baseUrl = 'http://localhost:8080/api/categories';
+const baseUrl = 'http://ec2-52-67-226-180.sa-east-1.compute.amazonaws.com/api/categories';
 
 @Injectable({
   providedIn: 'root'

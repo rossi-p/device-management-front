@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Device } from '../models/device.model';
 
-const baseUrl = 'http://localhost:8080/api/devices';
+const baseUrl = 'http://ec2-52-67-226-180.sa-east-1.compute.amazonaws.com/api/devices';
 
 @Injectable({
   providedIn: 'root'
