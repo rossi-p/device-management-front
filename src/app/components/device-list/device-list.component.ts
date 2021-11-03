@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/models/category.model';
 import { Device } from 'src/app/models/device.model';
 import { DeviceService } from 'src/app/services/devices.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDeviceComponent } from 'src/app/components/add-device/add-device.component';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,6 @@ import { environment } from '../../../environments/environment';
 })
 export class DeviceListComponent implements OnInit {
 
-  categories?: Category[];
   devices?: Device[];
   currentDevice: Device = {};
   currentIndex = 0;
@@ -34,7 +33,6 @@ export class DeviceListComponent implements OnInit {
       .subscribe(
         data => {
           this.devices = data.data;
-          console.log(this.devices)
           this.currentDevice = data.data[0]
         },
         error => {
@@ -50,10 +48,8 @@ export class DeviceListComponent implements OnInit {
   }
 
   setActiveDevice(device: Device, index: number): void {
-    
     this.currentDevice = device;
     this.currentIndex = index;
-    console.log(this.currentDevice);
   }
 
   searchName(): void {
@@ -73,7 +69,6 @@ export class DeviceListComponent implements OnInit {
   }
 
   deleteDevice(id: any) {
-    console.log("ID ID ::", id)
     this.deviceService.delete(id)
       .subscribe(
         (data) => {

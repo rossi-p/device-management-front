@@ -1,1 +1,38 @@
-<p>add-device works!</p>
+<h1 mat-dialog-title>New Device</h1>
+<div mat-dialog-content>
+    <form [formGroup]="creatingForm" ngNativeValidate >
+        <div class="form-group" >
+          <label for="color">Color</label>
+          <input type="text" 
+          class="form-control" 
+          id="color" 
+          aria-describedby="colorHelp" 
+          placeholder="Enter color" 
+          formControlName="color" 
+          name="color"
+          required>
+          <small id="colorHelp" class="form-text text-muted">The maximum size for color is 16.</small>
+        </div>
+        <div class="form-group" >
+            <label for="color">Category</label>
+            <select class="custom-select"  formControlName="categoryId" required>
+                <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+             </select>
+             <small id="colorHelp" class="form-text text-muted">Select one category.</small>
+        </div>
+        <div class="form-group" >
+            <label for="partNumber">Part number</label>
+            <input type="number" 
+            class="form-control" 
+            id="partNumber" 
+            aria-describedby="partNumberHelp" 
+            placeholder="Enter partNumber" 
+            formControlName="partNumber" 
+            name="partNumber"
+            required>
+            <small id="partNumberHelp" class="form-text text-muted">Only contain numbers.</small>
+          </div>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary primary-color float-right" (click)="createDevice()">Submit</button>
+      </form>
+</div>

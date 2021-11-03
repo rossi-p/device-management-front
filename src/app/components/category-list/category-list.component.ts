@@ -30,8 +30,8 @@ export class CategoryListComponent implements OnInit {
     this.categoryService.getAll()
       .subscribe(
         data => {
-          this.categories = data;
-          this.currentCategory = data[0]
+          this.categories = data.data;
+          this.currentCategory = data.data[0]
         },
         error => {
           console.log(error);
@@ -67,7 +67,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   deleteCategory(id: any) {
-    console.log("ID ID ::", id)
     this.categoryService.delete(id)
       .subscribe(
         (data) => {

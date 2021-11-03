@@ -12,8 +12,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Category[]> {
-    return this.http.get<Category[]>(baseUrl);
+  getAll(): Observable<{data: Category[]}> {
+    return this.http.get<{data: Category[]}>(baseUrl);
   }
 
   create(data: any): Observable<any> {

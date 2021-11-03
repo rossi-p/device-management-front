@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit {
-  public liveForm!: FormGroup;
+  public creatingForm!: FormGroup;
 
   constructor(private toastr: ToastrService,
     private categoryService: CategoryService,
@@ -19,21 +19,19 @@ export class AddCategoryComponent implements OnInit {
     public dialogRef: MatDialogRef<AddCategoryComponent>) {  }
 
   ngOnInit(): void {
-    this.liveForm = this.fb.group({
+    this.creatingForm = this.fb.group({
       name: ''
     });
   }
 
   createCategory(): void {
-    console.log(this.liveForm.value);
-    if(!this.liveForm.value.name) return
-    this.categoryService.create(this.liveForm.value)
+    if(!this.creatingForm.value.name) return
+    this.categoryService.create(this.creatingForm.value)
       .subscribe(
         data => {
           this.cancel();
           this.showToasterSuccess();
           window.location.reload();
-          console.log("data ::",data);
         },
         error => {
           console.log("error",error.status);
