@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from 'src/app/components/add-category/add-category.component';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-category-list',
@@ -31,11 +32,10 @@ export class CategoryListComponent implements OnInit {
         data => {
           this.categories = data;
           this.currentCategory = data[0]
-          console.log("data ::", data);
-          console.log("this.categories ::", this.categories);
         },
         error => {
           console.log(error);
+          this.toastr.success(environment.error(error.status))
         });
   }
 
@@ -70,14 +70,13 @@ export class CategoryListComponent implements OnInit {
     console.log("ID ID ::", id)
     this.categoryService.delete(id)
       .subscribe(
-        data => {
-          this.toastr.success("Data shown successfully !!")
+        (data) => {
+          this.toastr.success(environment.success)
           this.categories = this.categories?.filter(category => category.id !== id)
-          console.log("data ::", data);
-          console.log("this.categories ::", this.categories);
         },
         error => {
           console.log(error);
+          this.toastr.success(environment.error(error.status))
         });
   }
 

@@ -1,1 +1,37 @@
-<p>device-list works!</p>
+<div class="list row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-6">
+      <h4>Devices List</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let device of devices; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveDevice(device, i)"
+        >
+          {{ device.partNumber }}
+          <button type="button" class="close" aria-label="Close" (click)="deleteDevice(device.id)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </li>
+      </ul>
+      <button class="mt-3 btn-sm btn-primary primary-color" (click)="openDialog()">
+        Add Device
+      </button>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentDevice.id">
+        <h4>Device</h4>
+        <div>
+          <label><strong>Category name:</strong></label> {{ currentDevice.categoryName }}
+        </div> 
+        <div>
+          <label><strong>Color:</strong></label> {{ currentDevice.color }}
+        </div> 
+        <div>
+          <label><strong>PartNumber:</strong></label> {{ currentDevice.partNumber }}
+        </div>  
+      </div>
+    </div>
+  </div>

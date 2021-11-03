@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/models/category.model';
+import { Device } from 'src/app/models/device.model';
+import { DeviceService } from 'src/app/services/devices.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDeviceComponent } from 'src/app/components/add-device/add-device.component';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-device-list',
@@ -7,9 +15,75 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeviceListComponent implements OnInit {
 
-  constructor() { }
+  categories?: Category[];
+  devices?: Device[];
+  currentDevice: Device = {};
+  currentIndex = 0;
+  title = '';
+
+  constructor(private toastr: ToastrService,
+    private deviceService: DeviceService, 
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.retrieveDevices();
+  }
+
+  retrieveDevices(): void {
+    this.deviceService.getAll()
+      .subscribe(
+        data => {
+          this.devices = data.data;
+          console.log(this.devices)
+          this.currentDevice = data.data[0]
+        },
+        error => {
+          console.log(error);
+          this.toastr.success(environment.error(error.status))
+        });
+  }
+
+  refreshList(): void {
+    this.retrieveDevices();
+    this.currentDevice = {};
+    this.currentIndex = 0;
+  }
+
+  setActiveDevice(device: Device, index: number): void {
+    
+    this.currentDevice = device;
+    this.currentIndex = index;
+    console.log(this.currentDevice);
+  }
+
+  searchName(): void {
+    this.currentDevice = {};
+    this.currentIndex = -1;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddDeviceComponent, {
+      minWidth: '400px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  deleteDevice(id: any) {
+    console.log("ID ID ::", id)
+    this.deviceService.delete(id)
+      .subscribe(
+        (data) => {
+          this.toastr.success(environment.success)
+          this.devices = this.devices?.filter(device => device.id !== id)
+        },
+        error => {
+          console.log(error);
+          this.toastr.success(environment.error(error.status))
+        });
   }
 
 }
