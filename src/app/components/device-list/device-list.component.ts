@@ -64,6 +64,7 @@ export class DeviceListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.refreshList()
       console.log('The dialog was closed');
     });
   }
@@ -74,6 +75,8 @@ export class DeviceListComponent implements OnInit {
         (data) => {
           this.toastr.success(environment.success)
           this.devices = this.devices?.filter(device => device.id !== id)
+          this.currentDevice = {};
+          this.currentIndex = 0;
         },
         error => {
           console.log(error);

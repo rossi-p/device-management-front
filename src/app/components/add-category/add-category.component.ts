@@ -31,7 +31,6 @@ export class AddCategoryComponent implements OnInit {
         data => {
           this.cancel();
           this.showToasterSuccess();
-          window.location.reload();
         },
         error => {
           console.log("error",error.status);

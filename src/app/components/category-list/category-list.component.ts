@@ -19,7 +19,7 @@ export class CategoryListComponent implements OnInit {
   title = '';
 
   constructor(private toastr: ToastrService,
-    private categoryService: CategoryService, 
+    private categoryService: CategoryService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -62,6 +62,7 @@ export class CategoryListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.refreshList();
       console.log('The dialog was closed');
     });
   }
@@ -72,6 +73,8 @@ export class CategoryListComponent implements OnInit {
         (data) => {
           this.toastr.success(environment.success)
           this.categories = this.categories?.filter(category => category.id !== id)
+          this.currentCategory = {};
+          this.currentIndex = 0;
         },
         error => {
           console.log(error);
